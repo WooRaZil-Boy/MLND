@@ -12803,6 +12803,12 @@ lt95AAAAAElFTkSuQmCC
 <span class="n">features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">features_raw</span><span class="p">)</span>
 <span class="c1">#각 요소 마다 하나의 컬럼이 되어 들어간다. 위의 예에서는 A, B, C 세 가지 컬럼이 생긴다.</span>
 
+<span class="c1">#라벨 인코딩을 사용할 수도 있다.</span>
+<span class="c1"># from sklearn.preprocessing import LabelEncoder</span>
+<span class="c1"># le = LabelEncoder()</span>
+<span class="c1"># income = le.fit_transform(income_raw)</span>
+<span class="c1"># print le.inverse_transform(income)</span>
+
 <span class="c1"># TODO: Encode the &#39;income_raw&#39; data to numerical values</span>
 <span class="n">income</span> <span class="o">=</span> <span class="p">(</span><span class="n">income_raw</span> <span class="o">==</span> <span class="s2">&quot;&gt;50K&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
 <span class="c1">#income_raw == &quot;&gt;50K&quot;로 Treu/False 형으로 바꾼 후 astype으로 형 변환</span>
@@ -13177,6 +13183,11 @@ In the code block below, you will need to implement the following:</p>
 <span class="n">samples_1</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
 <span class="n">samples_10</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span>
 <span class="n">samples_100</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1">#loop로 특정 값을 확인해 볼 수도 있다.</span>
+<span class="c1"># for i in results.items():</span>
+<span class="c1">#     print i[0]</span>
+<span class="c1">#     display(pd.DataFrame(i[1]).rename(columns={0:&#39;1%&#39;, 1:&#39;10%&#39;, 2:&#39;100%&#39;}))</span>
 
 <span class="c1"># Collect results on the learners</span>
 <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
@@ -13983,8 +13994,8 @@ QEiSJEnqmQWEJEmSpJ5ZQEiSJEnq2f8HWLA37a0hVXAAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> The support vector machines are supervised learning models with associated learning algorithms that analyze data used for classification and regression analysis. Given a set of training examples, each marked as belonging to one or the other of two categories, an SVM training algorithm builds a model that assigns new examples to one category or the other, making it a non-probabilistic binary linear classifier. In addition to performing linear classification, SVMs can efficiently perform a non-linear classification using what is called the kernel trick, implicitly mapping their inputs into high-dimensional feature spaces.</p>
-<p>SVMs suppose some given data points each belong to one of two classes, and the goal is to decide which class a new data point will be in. There are many hyperplanes that might classify the data. One reasonable choice as the best hyperplane is the one that represents the largest separation, or margin, between the two classes. Whereas the original problem may be stated in a finite dimensional space, it often happens that the sets to discriminate are not linearly separable in that space. For this reason, it was proposed that the original finite-dimensional space be mapped into a much higher-dimensional space, presumably making the separation easier in that space. To keep the computational load reasonable, the mappings used by SVM schemes are designed to ensure that dot products may be computed easily in terms of the variables in the original space, by defining them in terms of a kernel function selected to suit the problem.</p>
+<p><strong>Answer: </strong> The support vector machines is that draw a boundary based on target. First of all, the SVM takes data. And makes a prediction based on the data. And then, the SVM calculates distance between predicted point and draw a boundary that maximizes the distance. According to this describing, the SVM doesn't look like siginificant algorithm. But the SVM has very special function, called kernel function. It make a more precise classification by folding or twisting certain boundaries.</p>
+<p>In this case, we got a lot of data that age, education_num etc. So, we can use them to create the SVM model. Our goal is finding a person who earns more than 50k dollars. So, we should select income column as target. The SVM draws a line as to maximize a distance between predicted point. Simply, we divide high income person and low income person. The SVM is attractive to be able to customize kernel functions. Because we choose optimized parameters, and it makes our prediction is more accurately.</p>
 
 </div>
 </div>
