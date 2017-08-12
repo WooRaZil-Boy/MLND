@@ -93,8 +93,13 @@ class LearningAgent(Agent):
 
     def get_maxQ_action(self, state):
         """ return maxQ_action """
-        return max(self.Q[state], key=lambda k: self.Q[state][k]) #키를 기준으로 max.
-        #self.Q[state]의 값으로 리턴해되, max 함수의 기준이 되는 것은 람다식
+        max_value_list = [k for k,v in self.Q[state].iteritems() if v == maxQ]
+        action = random.choice(max_value_list)
+
+        maxQ_action_value = max(self.Q[state], key=lambda k: self.Q[state][k]) #키를 기준으로 max.
+        #self.Q[state]의 값으로 리턴하되, max 함수의 기준이 되는 것은 람다식
+        maxQ_list = [k for k,v in self.Q[state].iteritems() if v == maxQ_action_value] #max값을 가지는 액션을 저장
+        return random.choice(maxQ_list) #중복되는 값이 있을 경우 랜덤하게 하나 리턴
 
 
     def createQ(self, state):
