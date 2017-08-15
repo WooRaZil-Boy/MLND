@@ -13798,7 +13798,7 @@ Percentage of detected dog in first 100 dog images : 1.00
 <p>We have imported some Python modules to get you started, but feel free to import as many modules as you need.  If you end up getting stuck, here's a hint that specifies a model that trains relatively fast on CPU and attains &gt;1% test accuracy in 5 epochs:</p>
 <p><img src="images/sample_cnn.png" alt="Sample CNN"></p>
 <p><strong>Question 4:</strong> Outline the steps you took to get to your final CNN architecture and your reasoning at each step.  If you chose to use the hinted architecture above, describe why you think that CNN architecture should work well for the image classification task.</p>
-<p><strong>Answer:</strong></p>
+<p><strong>Answer:</strong> First, I choose 4 CNN layers and 2 Fully connected layers. But, I found this model is too hard to work on my laptop. Actually I tried 4 times, but always laptop was downed. It had almost 35000 params. So I reduced CNN layers and resized filter strides. New model had almost 18000 params and my model is very similar to hint model. But I added drop out layer to avoid overfitting.</p>
 
 </div>
 </div>
