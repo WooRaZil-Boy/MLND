@@ -11897,7 +11897,7 @@ HFFG
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<h2 id="2.-Basic-Q-table">2. Basic Q-table<a class="anchor-link" href="#2.-Basic-Q-table">&#182;</a></h2><p>But, We are stucked. Because we don't know where is holes. There is the real FrozenLake map for our agent.</p>
+<h2 id="2.-Basic-Q-table">2. Basic Q-table<a class="anchor-link" href="#2.-Basic-Q-table">&#182;</a></h2><p>But, We are stuck. Because we don't know where the holes are. There is the real FrozenLake map for our agent.</p>
 <p><img src="images/frozen_lake_2.png" alt="frozen_lake_2"></p>
 <p>We can train the agent by random actions. But, as you know, it isn't efficient. So, we need other solution. The solution is that:</p>
 <blockquote><p>Even if you know the way, <strong>ask</strong> one more time. - Korean proverbs</p>
@@ -11947,13 +11947,13 @@ $$
 $$<p><img src="images/q_table_equation.png" alt="q_table_equation"></p>
 <p>Finally, we get a optimize function ${Q(s, a)} = r + \max{Q(s', a')}$. Let's dive in to the deep. First of all, we should initialize by zero.</p>
 <p><img src="images/q_table_init.png" alt="q_table_init"></p>
-<p>And we should update our Q-table by many trials. The agent can recieve a reward of 1 only when move to the right on $s_{14}$. So, before the agent arrives on $s_{14}$, we couldn't get any reward(always get a reward of zero). And return value of Q-function is also zero. So, we shouldn't update any value. But, after many trials, let's assume that the agent is on $s_{14}$. In this case, finally we can get a reward. because ${Q(s_{14}, a_{right})}$ will return a reward of 1. And, $\max{(Q(s_{15}, a))}$ is 0. Because, $s_{15}$ cell is our goal. So, we should update ${Q(s_{14}, a_{right})} = 1$.</p>
+<p>And we should update our Q-table by many trials. The agent can receive a reward of 1 only when move to the right on $s_{14}$. So, before the agent arrives on $s_{14}$, we couldn't get any reward(always get a reward of zero). And return value of Q-function is also zero. So, we shouldn't update any value. But, after many trials, let's assume that the agent is on $s_{14}$. In this case, finally we can get a reward. because ${Q(s_{14}, a_{right})}$ will return a reward of 1. And, $\max{(Q(s_{15}, a))}$ is 0. Because, $s_{15}$ cell is our goal. So, we should update ${Q(s_{14}, a_{right})} = 1$.</p>
 $$
 {Q(s, a)} = r + \max{Q(s', a')}
 $$$$
 {Q(s_{14}, a_{right})} = 1 + 0 = 1
 $$<p><img src="images/q_table_reward.png" alt="q_table_reward"></p>
-<p>After $s_{14}$ state was updated, let's assume that the agent is on $s_{13}$ like before example($s_{14}$). In this case, ${Q(s_{13}, a_{right})}$ couldn't get a reward. But, $\max{Q(s', a')}$ is 1. Because, $s'$ is $s_{14}$, so, $\max{Q(s', a')}$ is ${Q(s_{14}, a_{right})}$. So, we should update ${Q(s_{13}, a_{right})} = 1$</p>
+<p>After $s_{14}$ state was updated, let's assume that the agent is on $s_{13}$ like before example($s_{14}$). In this case, ${Q(s_{13}, a_{right})}$ couldn't get a reward. But, $\max{Q(s', a')}$ is 1. Because, $s'$ is $s_{14}$. So, $\max{Q(s', a')}$ is ${Q(s_{14}, a_{right})}$. So, we should update ${Q(s_{13}, a_{right})} = 1$</p>
 $$
 {Q(s, a)} = r + \max{Q(s', a')}
 $$$$
@@ -12260,7 +12260,7 @@ if rand &lt; e:
     a = random
 else:
     a = argmax(Q(s, a))</code></pre>
-<p>So, I will go to Burger King with a 90% chance. And I will go to other food chains with 10% chance. Like this, the agent will follow ${Q(s, a)}$ with 90% chance. And the agent will find new way with a 10% chance. But, this strategy isn't efficient. Because, as learning progresses, the agent need to find a new way less and less. So, at first, the agent needs to do a lot of exploring. Later when it has learned more, the agent can favor choosing actions based on what it has learned. This is called exploitation. We'll set it up so the agent is more likely to explore early in training, then more likely to exploit later in training. The is called an <strong>decaying $\epsilon$-greedy policy</strong></p>
+<p>So, I will go to Burger King with a 90% chance. And I will go to other food chains with 10% chance. Like this, the agent will follow ${Q(s, a)}$ with 90% chance. And the agent will find new way with a 10% chance. But, this strategy isn't efficient. Because, as learning progresses, the agent need to find a new way less and less. So, at first, the agent needs to do a lot of exploring. Later when it has learned more, the agent can favor choosing actions based on what it has learned. This is called exploitation. We'll set it up so the agent is more likely to explore early in training, then more likely to exploit later in training. The is called an <strong>decaying $\epsilon$-greedy policy</strong>.</p>
 
 <pre><code>for i in range(1000):
     e = 0.1 / (i+1)
@@ -12269,14 +12269,14 @@ else:
         a = random
     else:
         a = argmax(Q(s, a))</code></pre>
-<p>Accorind to this, as time passes, $\epsilon$ is decreased. So, later when it has learned more, the agent can choose action based on what it has learned than random action.</p>
+<p>According to this, as time passes, $\epsilon$ is decreased. So, later when it has learned more, the agent can choose action based on what it has learned than random action.</p>
 <p>And the second is called an <strong>add random noise</strong>. The concept of this method is that just add random value to each action.</p>
 <p><img src="images/junk_food_random_value.png" alt="junk_food_random_value"></p>
 $$
 {a} = {\operatorname{argmax}}{Q(s, a) + {RandomValue}}
 $$$$
 {a} = {\operatorname{argmax}}{([0.3, 0.9, 0.2, 0.7] + [0.2, 0.1, 0.4, 0.5])}
-$$<p>In this case, we will choose McDonald's. And also we can use dacaying policy with add random noise.</p>
+$$<p>In this case, we will choose McDonald's. And also we can use decaying policy with add random noise.</p>
 
 <pre><code>for i in range(1000):
     a = argmax(Q(s, a) + random_value / (i+1))</code></pre>
@@ -12720,7 +12720,7 @@ SQ36fzXTQTxIT2RiAAAAAElFTkSuQmCC
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<h2 id="5.-Q-table-in-real-world">5. Q-table in real world<a class="anchor-link" href="#5.-Q-table-in-real-world">&#182;</a></h2><p>Like the name of the game 'Frozenlake', let's think we're on an real frozen lake. The place will be very slippery. So, although we should move carefully, we couldn't move accurately. Fon instance, we tried to move to right, but we could slip down. In previous environment, the agent could move accurately. Because it is artificial environment. But we can set more realistic environment. We call this environment as <strong>Stochastic model</strong>.</p>
+<h2 id="5.-Q-table-in-real-world">5. Q-table in real world<a class="anchor-link" href="#5.-Q-table-in-real-world">&#182;</a></h2><p>Like the name of the game 'Frozenlake', let's think we're on an real frozen lake. The place will be very slippery. So, although we should move carefully, we couldn't move accurately. For instance, we tried to move to right, but we could slip down. In previous environment, the agent could move accurately. Because it is artificial environment. But we can set more realistic environment. We call this environment as <strong>Stochastic model</strong>.</p>
 <ul>
 <li><strong>Deterministic models</strong> : the output of the model is fully determined by the parameter values and the initial conditions initial conditions.</li>
 <li><strong>Stochastic models</strong> : possess some inherent randomness. The same set of parameter values and initial conditions will lead to an ensemble of different outputs.</li>
@@ -13010,7 +13010,7 @@ RU5ErkJggg==
 <p>Totally failed. We need new solution. The solution is simple:</p>
 <blockquote><p>Two heads are better than one</p>
 </blockquote>
-<p>Like our life mentors. Don’t just listen and follow one mentor. we need our own solutions. In previour model, we just accept Q-function completely. So, our new algorithm is that listen to $Q(s')$ just little bit(mentor's solution) and update $Q(s)$ little bit(our own solution). So, we will update $Q(s)$ by learning rate.</p>
+<p>Like our life mentors. Don’t just listen and follow one mentor. we need our own solutions. In previous model, we just accept Q-function completely. So, our new algorithm is that listen to $Q(s')$ just little bit(mentor's solution) and update $Q(s)$ little bit(our own solution). So, we will update $Q(s)$ by learning rate.</p>
 <p>There is our previous equation:</p>
 $$
 Q(s, a) \leftarrow r + \gamma \max{Q(s', a')}
@@ -13237,10 +13237,10 @@ $$<p>$[0.5, 0.1, 0.0, 0.8]$ represents $(a_{left}, a_{right}, a_{up}, a_{down})$
 <p>In the Neural Network, when we put state into the input, we will receive reward as output.</p>
 $$
 H(x) = Wx = \hat{Q}(s,a)
-$$<p>where $H$ is hypothesis, $W$ is ouput of the Neural Network. So, we can calculate cost by <a href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean squared error</a>.</p>
+$$<p>where $H$ is hypothesis, $Wx$ is output of the Neural Network. So, we can calculate cost by <a href="https://en.wikipedia.org/wiki/Mean_squared_error">Mean squared error</a>.</p>
 $$
 cost(W) = \frac{1}{n}\sum_{i=1}^{n} (Wx_i - y_i)^2
-$$<p>where $y$ is taget label. In Q-learning, we don't have any target label because it is reinforcement learning. So, in this case, we will set target label as $Q(s, a)$. Because optimize $Q(s, a)$ is our goal.</p>
+$$<p>where $y$ is target label. In Q-learning, we don't have any target label because it is reinforcement learning. So, in this case, we will set target label as $Q(s, a)$. Because optimize $Q(s, a)$ is our goal.</p>
 $$
 cost(W) = \frac{1}{n}\sum_{i=1}^{n} (Wx_i - y_i)^2
 $$$$
@@ -13258,8 +13258,8 @@ $$<p>It looks complicated. But it is just same as optimizing weight in Linear re
 <p>Putting all this together, we can list out the algorithm we'll use to train the network.</p>
 <ul>
 <li>Initialize action-value network $Q$ with random weights</li>
-<li><strong>For</strong> episode = 1, $M$ <strong>do</strong>
-  Initialise sequence $s_1$ = {$x_1$} and preprocessed sequence $\phi_1 = \phi(s_1)$ <ul>
+<li><strong>For</strong> episode = 1, $M$ <strong>do</strong><br>
+  Initialize sequence $s_1$ = {$x_1$} and preprocessed sequence $\phi_1 = \phi(s_1)$ <ul>
 <li><strong>For</strong> $t=1$, $T$ <strong>do</strong><ul>
 <li>With probability $\epsilon$ select a random action $a_t$, otherwise select $a_t = \max_a Q^*(\phi(s_t), a;\theta)$</li>
 <li>Execute action $a_t$ in emulator and observe reward $r_t$ and image $x_{t+1}$</li>
@@ -13675,7 +13675,7 @@ Reward for this episode 5 was: 16.0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>It's very simillar with previous 'FrozenLake' environment. Like this, we can make network by Q-network. If there are differences, we will receive left or right as Q-reward. In 'FrozenLake' environment, we received up, down, left and right as Q-reward.</p>
+<p>It's very similar with previous 'FrozenLake' environment. Like this, we can make network by Q-network. But in this game, we will receive left or right as Q-reward. In 'FrozenLake' environment, we received up, down, left and right as Q-reward.</p>
 
 </div>
 </div>
@@ -13732,7 +13732,7 @@ Reward for this episode 5 was: 16.0
     <span class="n">step_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step_count</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Episode: </span><span class="si">{}</span><span class="s2">  steps: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="p">,</span> <span class="n">step_count</span><span class="p">))</span>
     <span class="c1"># If last 10&#39;s avg steps are 500, it&#39;s good enough</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">step_history</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">step_history</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:])</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">step_history</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">step_history</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:])</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
         <span class="k">break</span>
 </pre></div>
 
@@ -18779,13 +18779,13 @@ Set\;{y_i} =
 &amp; r_{j}\;(for\;terminal)\\ 
 &amp; r_{j} + \gamma\max{Q} \;(for\;non-terminal)
 \end{matrix}\right.
-$$<p>If the pole has fallen, the agent will get negative reward and the episode will be over. So, we set negative 100 reward(big penalty) in this situation. By doing this, the agent will be train.</p>
+$$<p>If the pole has fallen, the agent will get negative reward and the episode will be over. So, we set negative 1 reward(penalty) in this situation. By doing this, the agent will be train.</p>
 
-<pre><code>if len(step_history) &gt; 10 and np.mean(step_history[-10:]) &gt; 500:
+<pre><code>if len(step_history) &gt; 10 and np.mean(step_history[-10:]) &gt; 200:
     break
 
 </code></pre>
-<p>If the pole doesn't have fall over 500 steps, we will consider that the agent is learned.</p>
+<p>If the pole doesn't have fall over 200 steps, we will consider that the agent is learned.</p>
 <p>After training, we can use our model as test model.</p>
 
 </div>
@@ -18859,20 +18859,20 @@ $$<p>If the pole has fallen, the agent will get negative reward and the episode 
 <li>Non-stationary targets</li>
 </ul>
 <p>First, we use only one layer. It isn't deep enough to make a good solution.</p>
-<p>And second, it has problem that <strong>Correlations between samples</strong>. According to algorithm, each data that we received is very simmilar. Because when we received reward, the pole state isn't significantly different from previous state. So, there are correlations between samples. But, why is it a problem?</p>
+<p>And second, it has problem that <strong>Correlations between samples</strong>. According to algorithm, each data that we received is very similar. Because when we received reward, the pole state isn't significantly different from previous state. So, there are correlations between samples. But, why is it a problem?</p>
 <p><img src="images/DQN_linear_1.png" alt="DQN_linear_1.png"></p>
 <p>This is a graph of weight and mile per gallon about a car. And we can draw a blue line as a result of linear regression. But if we had only a few correlational data like in the black circle, we would draw different line as a red. It makes totally different result. Our previous model has same problem. The agent could be trained incorrectly because it was just trained by correlational samples.</p>
 <p>Third problem is <strong>Non-stationary targets</strong>. Let's check our cost formula again.</p>
 $$
 \min\sum_{t=0}^{T}[\hat{Q}(s_t, a_t|\theta) - (r_t + \gamma\max\hat{Q}(s_{t+1}, a'|\theta))]^2
-$$<p>In this equation, $\min\sum_{t=0}^{T} \hat{Q}(s_t, a_t|\theta)$ is our prediction. And $(r_t + \gamma\max\hat{Q}(s_{t+1}, a'|\theta))^2$ is our target.</p>
+$$<p>In this equation, $\hat{Q}(s_t, a_t|\theta)$ is our prediction. And $(r_t + \gamma\max\hat{Q}(s_{t+1}, a'|\theta))^2$ is our target.</p>
 $$
 \hat{Y} = \hat{Q}(s_t, a_t|\theta)
 $$$$
 Y = (r_t + \gamma\max\hat{Q}(s_{t+1}, a'|\theta)
 $$<p>So, our goal is making $\hat{Y}$ and $Y$ similar. But, we have same $\theta$ in each equation. When we update our $\hat{Y}$, our target $Y$ is updated too. It is like that immediately moving a target after shooting an arrow. 
 This is an ironical situation. So, we call this situation <strong>Non-stationary targets</strong>.</p>
-<p>So, we have solutions:</p>
+<p>So, here are solutions:</p>
 <ul>
 <li>Too shallow<ul>
 <li>Go deep</li>
@@ -18894,12 +18894,12 @@ This is an ironical situation. So, we call this situation <strong>Non-stationary
 <p><img src="images/capture_and_replay.png" alt="capture_and_replay"></p>
 <p>Let's see the graph of weight and mile per gallon about a car again.</p>
 <p><img src="images/DQN_linear_2.png" alt="DQN_linear_2"></p>
-<p>In this graph, circles are same as previous scatter graph. And blue line is linear regression line by circles. However I choose half of previous samples ramdomly, and mark as 'x'. And red line is linear regression line by 'x's. As you can see, each result are almost same. Like this, we can train our Q-network by choosing random samples in buffer.</p>
+<p>In this graph, circles are same as previous scatter graph. And blue line is linear regression line by circles. However I choose half of previous samples randomly, and mark as 'x'. And red line is linear regression line by 'x's. As you can see, each result are almost same. Like this, we can train our Q-network by choosing random samples in buffer.</p>
 <p>So, we can summarize that:</p>
 <ul>
-<li>Initialize action-value network $Q$ with random weights</li>
-<li><strong>For</strong> episode = 1, $M$ <strong>do</strong>
-  Initialise sequence $s_1$ = {$x_1$} and preprocessed sequence $\phi_1 = \phi(s_1)$ <ul>
+<li>Initialize action-value network $Q$ with random weights $\theta$</li>
+<li><strong>For</strong> episode = 1, $M$ <strong>do</strong><br>
+  Initialize sequence $s_1$ = {$x_1$} and preprocessed sequence $\phi_1 = \phi(s_1)$ <ul>
 <li><strong>For</strong> $t=1$, $T$ <strong>do</strong><ul>
 <li>With probability $\epsilon$ select a random action $a_t$, otherwise select $a_t = \max_a Q^*(\phi(s_t), a;\theta)$</li>
 <li>Execute action $a_t$ in emulator and observe reward $r_t$ and image $x_{t+1}$</li>
@@ -18928,8 +18928,8 @@ $$<p>Only one difference is $\bar\theta$ in target label. We will separate netwo
 <li>Initialize replay memory $D$ to capacity $N$</li>
 <li>Initialize action-value network $Q$ with random weights $\theta$</li>
 <li>Initialize target action-value network $\hat{Q}$ with random weights $\bar\theta = \theta$</li>
-<li><strong>For</strong> episode = 1, $M$ <strong>do</strong>
-  Initialise sequence $s_1$ = {$x_1$} and preprocessed sequence $\phi_1 = \phi(s_1)$ <ul>
+<li><strong>For</strong> episode = 1, $M$ <strong>do</strong><br>
+  Initialize sequence $s_1$ = {$x_1$} and preprocessed sequence $\phi_1 = \phi(s_1)$ <ul>
 <li><strong>For</strong> $t=1$, $T$ <strong>do</strong><ul>
 <li>With probability $\epsilon$ select a random action $a_t$, otherwise select $a_t = \max_a Q^*(\phi(s_t), a;\theta)$</li>
 <li>Execute action $a_t$ in emulator and observe reward $r_t$ and image $x_{t+1}$</li>
