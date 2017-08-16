@@ -2,6 +2,6 @@
 Reinforcement Learning with TensorFlow&OpenAI Gym
 
 ## Requirements
-Numpy
-TensorFlow
-OpenAI Gym
+Numpy     
+TensorFlow     
+OpenAI Gym     
